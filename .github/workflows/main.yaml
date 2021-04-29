@@ -12,8 +12,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Run a one-line script
-        run: whoami; pwd; echo $PATH
+      - name: Install and Configure kubectl
+        run: curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl" && chmod +x ./kubectl && sudo mv ./kubectl /usr/local/bin/kubectl
 
       - name: Configure AWS credentials from Test account
         uses: aws-actions/configure-aws-credentials@v1
@@ -24,12 +24,5 @@ jobs:
 
       - name: List EKS clusters
         run: |
-          which aws; cat ~/.kube/config
-
-      - name: Deploy to cluster
-        uses: steebchen/kubectl@master
-        env:
-          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-        with:
-          args: apply -f ./app/nginx.yaml
+          aws eks list-clusters; aws eks --region ${{ secrets.AWS_REGION }} update-kubeconfig --name challenge
           
