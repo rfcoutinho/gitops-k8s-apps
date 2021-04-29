@@ -15,7 +15,7 @@ jobs:
       - name: Install and Configure kubectl
         run: curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl" && chmod +x ./kubectl && sudo mv ./kubectl /usr/local/bin/kubectl
 
-      - name: Configure AWS credentials from Test account
+      - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -29,4 +29,7 @@ jobs:
       - name: Apply NGINX yaml
         run: |
           kubectl apply -f ./app/nginx.yaml
-          
+
+      - name: Print NGINX public endpoint
+        run: |
+          kubectl get svc | awk 'BEGIN {print "NGINX PUBLIC ENDPOINT:"}/nginx-service-loadbalancer/ {print $4}'          
