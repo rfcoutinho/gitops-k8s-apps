@@ -24,7 +24,7 @@ jobs:
 
       - name: List EKS clusters
         run: |
-          aws eks list-clusters
+          which aws
 
       - name: Deploy to cluster
         uses: steebchen/kubectl@master
@@ -33,6 +33,3 @@ jobs:
         with:
           args: apply -f ../../app/nginx.yaml
           
-      - name: List EKS clusters
-        run: |
-          which aws
