@@ -26,3 +26,7 @@ jobs:
         run: |
           aws eks list-clusters; aws eks --region ${{ secrets.AWS_REGION }} update-kubeconfig --name challenge
           
+      - name: Apply NGINX yaml
+        run: |
+          kubectl apply -f ./app/nginx.yaml
+          
