@@ -32,3 +32,7 @@ jobs:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
         with:
           args: apply -f ../../app/nginx.yaml
+          
+      - name: List EKS clusters
+        run: |
+          which aws
