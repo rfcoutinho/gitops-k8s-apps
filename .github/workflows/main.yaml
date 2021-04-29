@@ -24,7 +24,7 @@ jobs:
 
       - name: List EKS clusters
         run: |
-          which aws
+          which aws; cat ~/.kube/config
 
       - name: Deploy to cluster
         uses: steebchen/kubectl@master
