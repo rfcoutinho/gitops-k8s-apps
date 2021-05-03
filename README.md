@@ -1,5 +1,7 @@
-# k8s-apps
-Sample k8s apps
+# GitOps k8s apps
+A GitOps example for a K8s cluster
+
+![GitOps Workflow example](docs/gitops-example.png)
 
 ## Description
 
